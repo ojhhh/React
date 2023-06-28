@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // id가 root인 요소 선택
+    const root = document.querySelector("#root");
+    // 버튼 요소 생성
+    const btn = document.createElement("button");
+    btn.addEventListener("click", (e) => {
+      // 버튼을 클릭하면 해당 이벤트가 발생한 타겟의 내용 변경
+      if (e.target.innerHTML === "Login") {
+        // Login 이면 LogOut으로
+        e.target.innerHTML = "LogOut";
+      } else {
+        // LogOut이면 Login으로
+        e.target.innerHTML = "Login";
+      }
+    });
+
+    btn.innerHTML = "<div>click</div>";
+    root.append(btn);
+  </script>
+</html>

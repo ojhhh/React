@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    class Clock extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          Time: new Date().toLocaleTimeString(),
+        };
+      }
+
+      // update() {
+      //   setState({});
+      //   // 변경전 상태가 찍힘
+      //   console.log(this.state);
+      // }
+
+      // react 생명주기
+      // 화면이 그려지는 시기와 state값이 변했을때 동작해야하는 작업이 있을경우 이런 부분을 제어 할 수 있게 리액트에서 만들어줌
+
+      // 컴포넌트가 생성되면 딱 1번 호출
+      componentDidMount() {
+        // 여기에는 되도록 쓰지말아야하지만 실습을 위해 한번 씀
+        setInterval(() => {
+          this.setState({ Time: new Date().toLocaleTimeString() });
+        }, 1000);
+        console.log("first run");
+      }
+
+      componentDidUpdate() {
+        console.log("update state");
+      }
+
+      render() {
+        return (
+          <>
+            <h1>computer time</h1>
+            <h2>time : {this.state.Time}</h2>
+          </>
+        );
+      }
+    }
+
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    root.render(<Clock />);
+  </script>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script>
+    // react의 UI의 기본 단위는 컴포넌트
+    // 컴포넌트는 상태와 속성을 가지고 있음
+    // 리액트의 데이터의 흐름은 단방향(부모 -> 자식)
+    // 하지만 자식에서 부모로는 보낼 수 없음
+    // 리덕스 : 전역 저장소. 모든 컴포넌트가 접근할 수 있음
+
+    // 컴포넌트 클래스
+    // Component의 모양을 만들고 상속 받아서 사용
+    class Component {
+      target;
+      // 상태값 컴포넌트의 유지되는 데이터
+      state;
+
+      constructor(target) {
+        // 컴포넌트의 target을 설정
+        this.target = target;
+        // new VirtualDOM(App, document.querySelector("#root")) 선언을 하는 순간
+        // setup(), render() 실행되어 오버라이딩됨
+        this.setup();
+        this.render();
+        console.log("first rendering");
+      }
+
+      setup() {
+        // 컴포넌트를 초기 설정 하기전에 렌더링 하는 함수
+        console.log("component initial setting");
+      }
+
+      template() {
+        // 컴포넌트 HTML 템플릿을 반환
+        return "";
+      }
+
+      render() {
+        // 컴포넌트를 타겟요소에 렌더링
+        this.target.innerHTML = this.template();
+        this.setEvent();
+      }
+
+      setEvent() {
+        // 컴포넌트 이벤트 세팅
+        console.log("component event setting");
+      }
+
+      setState(_state) {
+        // 컴포넌트 상태 업데이트
+        // 업데이트되면 다시 렌더링
+        this.state = { ...this.state, ..._state };
+        this.render();
+        console.log("change state");
+      }
+    }
+
+    // 가상 DOM class 정의
+    class VirtualDOM {
+      constructor(Component, target) {
+        // 매개변수로 전달받은 컴포넌트 생성 후 타겟 요소 전달
+        // 컴포넌트 클래스 생성자 함수의 매개변수로 타겟 전달
+        this.Component = new Component(target);
+      }
+
+      render() {
+        this.Component.template();
+      }
+    }
+
+    class App extends Component {
+      setup() {
+        // App에 컴포넌트 초기 세팅 함수
+        this.state = { items: ["item 1", "item 2"] };
+      }
+
+      template() {
+        // App 컴포넌트를 HTML을 생성 해서 반환
+        const { items } = this.state;
+        return `
+        <ul>
+          ${items.map((item) => `<li>${item}</li>`)}
+        </ul>
+        <button>add</button>
+        `;
+      }
+
+      setEvent() {
+        // App 컴포넌트의 이벤트 등록
+        this.target.querySelector("button").addEventListener("click", () => {
+          const { items } = this.state;
+          this.setState({ items: [...items, `item ${items.length + 1}`] });
+        });
+      }
+    }
+    // root는 선택자로 잡고
+    const root = new VirtualDOM(App, document.querySelector("#root"));
+    root.render();
+  </script>
+</html>

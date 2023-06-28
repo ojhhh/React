@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- React, ReactDOM 라이브러리 -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <!-- Babel을 가져와서 JSX 문법을 사용 -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- babel : javascript 코드를 변환해주는 도구. javascript를 컴파일 해줌. JSX구문을 브라우저에서 읽을 수 있는 Javascript로 변환해줌 -->
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    class LoginBtn extends React.Component {
+      constructor(props) {
+        // 부모 생성자 함수 호출
+        super(props);
+        // component state
+        this.state = {
+          isLogin: false,
+        };
+      }
+      // JSX 문법
+      render() {
+        // {} : javascript 구문을 사용하겠다는 의미
+        return (
+          <button
+            onClick={() => {
+              // 현재의 상태의 반대값
+              this.setState({ isLogin: !this.state.isLogin });
+            }}
+          >
+            {this.state.isLogin ? "Logout" : "Login"};
+          </button>
+        );
+      }
+    }
+
+    // 루트 요소를 가상 DOM으로 생성
+    // createRoot 메소드 렌더링을 위한 루트 객체를 생성
+    // root 아이디를 가진 태그로 설정
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    // JSX 문으로 로그인 버튼 컴포넌트를 root에 렌더링
+    root.render(<LoginBtn id="2">hello</LoginBtn>);
+  </script>
+</html>
