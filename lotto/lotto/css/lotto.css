@@ -1,0 +1,48 @@
+.LottoWrap {
+  width: 600px;
+  height: 300px;
+  border: 1px solid;
+}
+
+.LottoTitle {
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+.LottoContainer {
+  width: 100%;
+  height: 100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LottoContainer .LottoNum {
+  width: 50px;
+  height: 50px;
+  border: 1px solid;
+  margin: 0 5px;
+  border-radius: 50%;
+}
+.LottoContainer .LottoBonusNum {
+  width: 50px;
+  height: 50px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: purple;
+}
+
+.LottoContainer span {
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+.LottoContainer .LottoNum:nth-child(7) {
+  border: none;
+}

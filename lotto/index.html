@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    // 댓글 컴포넌트
+    class CommentItem extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+      render() {
+        return (
+          <ul>
+            <li>{this.props.userid}</li>
+            <li>{this.props.content}</li>
+            <li>{this.props.date}</li>
+          </ul>
+        );
+      }
+    }
+
+    class CommentForm extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          value: "",
+        };
+        this.changeHandler = this.changeHandler.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
+      }
+
+      changeHandler(e) {
+        const { value } = e.target;
+        this.setState({
+          ...this.state,
+          value,
+        });
+      }
+
+      // 입력했을때 새로고침 되는거 막기
+      submitHandler(e) {
+        e.preventDefault();
+        // 작성한 댓글을 추가 후 초기화
+        this.props.create(this.state.value);
+        this.setState({ value: "" });
+      }
+
+      render() {
+        return (
+          <li>
+            <form onSubmit={this.submitHandler}>
+              <h4>
+                comment <span> : {this.props.length}</span>
+              </h4>
+              <span>
+                <input
+                  type="text"
+                  onChange={this.changeHandler}
+                  value={this.state.value}
+                />
+              </span>
+              <input type="submit" value="submit" />
+            </form>
+          </li>
+        );
+      }
+    }
+
+    // 댓글 리스트 그려주는 컴포넌트
+    class CommentList extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      loop(value, index) {
+        // key는 넣어도 되고 안넣어도 됨
+        // key는 리액트가 요소를 식별할때 사용하기 떄문에 성능이 좋아짐
+        // index로 작성하는 건 좋은 방법은 아니지만 큰 상관은 없음
+        return (
+          <CommentItem
+            key={index}
+            userid={value.userid}
+            content={value.content}
+            date={value.date}
+          />
+        );
+      }
+
+      render() {
+        return <li>{this.props.items.map(this.loop)}</li>;
+      }
+    }
+
+    // 댓글 기능을 담당할 컴포넌트
+    class Comment extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          comment: [
+            {
+              userid: "o",
+              content: "content 1",
+              date: "2023-06-29",
+            },
+            {
+              userid: "0",
+              content: "content 2",
+              date: "2023-06-29",
+            },
+          ],
+        };
+        // create 함수 바인딩
+        this.create = this.create.bind(this);
+      }
+
+      // 새로운 댓글 작성
+      create(content) {
+        // 컨텍스트가 유지될 수 있게 바인드 사용
+        this.setState({
+          comment: [
+            ...this.state.comment,
+            {
+              userid: "oo",
+              content,
+              date: "2023-06-29",
+            },
+          ],
+        });
+      }
+
+      render() {
+        return (
+          <ul>
+            {/* comment write form */}
+            <CommentForm
+              create={this.create}
+              length={this.state.comment.length}
+            />
+            {/* comment list */}
+            <CommentList items={this.state.comment} />
+          </ul>
+        );
+      }
+    }
+
+    // 페이지 컴포넌트
+    class App extends React.Component {
+      render() {
+        return (
+          <div>
+            {/* comment layout component */}
+            <Comment />
+          </div>
+        );
+      }
+    }
+
+    // root
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    root.render(<App />);
+  </script>
+</html>

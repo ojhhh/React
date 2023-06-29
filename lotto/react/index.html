@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    // 속성값을 받아서 사용
+    class TEXT extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      render() {
+        return <h2>{this.props.text}</h2>;
+      }
+    }
+
+    class LoginBtnText extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      render() {
+        // this.props.flag 조건부 렌더링
+        // props에 전달하는 객체의 키값으로 전달
+        // true 일떄 props = {text : "Logout"} false 일때 props = {text : "Login"}
+        return this.props.flag ? <TEXT text="Logout" /> : <TEXT text="Login" />;
+      }
+    }
+
+    class LoginBtn extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          isLogin: false,
+        };
+        // this가 어느 컨텍스트에서 실행 될지 모르기 때문에 바인딩해줌
+        // 바인딩하면 함수 호출을 하면 컨텍스트를 유지할 수 있음
+        this.handleClick = this.handleClick.bind(this);
+      }
+
+      handleClick() {
+        this.setState({ isLogin: !this.state.isLogin });
+      }
+
+      render() {
+        return (
+          <button onClick={this.handleClick}>
+            <LoginBtnText flag={this.state.isLogin} />
+          </button>
+        );
+      }
+    }
+
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          isLogin: false,
+        };
+      }
+
+      render() {
+        return (
+          <>
+            <TEXT text="login layout" />
+            <LoginBtn />
+          </>
+        );
+      }
+    }
+
+    // create root
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    root.render(<App />);
+  </script>
+</html>

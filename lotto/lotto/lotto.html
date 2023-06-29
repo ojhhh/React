@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="./css/lotto.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    class LottoBox extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      render() {
+        console.log(this.props.createNum());
+        // console.log(this.props.RandomNum);
+        // return <div className="LottoNum">{this.props.RandomNum}</div>;
+      }
+    }
+
+    // 랜덤으로 숫자를 만들어 주는 기능
+    class LottoNum extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { arr: [] };
+      }
+
+      createNum() {
+        // this.setState({
+        //   arr: [...this.state.arr, Math.floor(Math.random() * 45 + 1)],
+        // });
+        return Math.floor(Math.random() * 45 + 1);
+      }
+
+      render() {
+        return <LottoBox createNum={this.createNum} />;
+        // console.log(this.state);
+        // return <LottoBox RandomNum={Math.floor(Math.random() * 45 + 1)} />;
+      }
+    }
+
+    // 그려주는 기능과 랜덤으로 숫자를 만드는 기능 합치는 곳
+    class Lotto extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+
+      render() {
+        return (
+          <div className="LottoWrap">
+            <div className="LottoTitle">
+              <span>로또 추첨기</span>
+            </div>
+
+            <div className="LottoContainer">
+              <LottoNum />
+              <span>+</span>
+              <div className="LottoBonusNum"></div>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    class App extends React.Component {
+      render() {
+        return <Lotto />;
+      }
+    }
+
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    root.render(<App />);
+  </script>
+</html>
