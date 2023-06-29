@@ -29,20 +29,12 @@
   border: 1px solid;
   margin: 0 5px;
   border-radius: 50%;
-}
-.LottoContainer .LottoBonusNum {
-  width: 50px;
-  height: 50px;
-  margin: 0 5px;
-  border-radius: 50%;
-  background-color: purple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .LottoContainer span {
   font-size: 20px;
   margin: 0 10px;
-}
-
-.LottoContainer .LottoNum:nth-child(7) {
-  border: none;
 }

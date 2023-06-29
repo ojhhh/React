@@ -26,9 +26,11 @@
       }
 
       render() {
-        console.log(this.props.createNum());
-        // console.log(this.props.RandomNum);
-        // return <div className="LottoNum">{this.props.RandomNum}</div>;
+        return this.props.numberBox.map((num, index) => (
+          <div className="LottoNum" key={index}>
+            {num}
+          </div>
+        ));
       }
     }
 
@@ -36,20 +38,28 @@
     class LottoNum extends React.Component {
       constructor(props) {
         super(props);
-        this.state = { arr: [] };
+        this.state = {
+          arr: [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+            37, 38, 39, 40, 41, 42, 43, 44, 45,
+          ],
+        };
       }
 
       createNum() {
-        // this.setState({
-        //   arr: [...this.state.arr, Math.floor(Math.random() * 45 + 1)],
-        // });
-        return Math.floor(Math.random() * 45 + 1);
+        const arr = this.state.arr;
+        const newArr = [];
+        while (newArr.length < 6) {
+          const ranNum = Math.floor(Math.random() * arr.length);
+          newArr.push(arr.splice(ranNum, 1)[0]);
+        }
+
+        return newArr;
       }
 
       render() {
-        return <LottoBox createNum={this.createNum} />;
-        // console.log(this.state);
-        // return <LottoBox RandomNum={Math.floor(Math.random() * 45 + 1)} />;
+        return <LottoBox numberBox={this.createNum()} />;
       }
     }
 
@@ -68,8 +78,6 @@
 
             <div className="LottoContainer">
               <LottoNum />
-              <span>+</span>
-              <div className="LottoBonusNum"></div>
             </div>
           </div>
         );
