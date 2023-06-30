@@ -20,11 +20,14 @@
     <div id="root"></div>
   </body>
   <script type="text/babel">
+    // LottoNum 클래스의 render 함수에서 보내진  numberBox={this.createNum()가
+    // props안에 numberBox로 들어감
     class LottoBox extends React.Component {
       constructor(props) {
         super(props);
       }
 
+      // 받아온 6개의 숫자를 map 메소드를 사용하여 6번 돌려 출력
       render() {
         return this.props.numberBox.map((num, index) => (
           <div className="LottoNum" key={index}>
@@ -35,6 +38,9 @@
     }
 
     // 랜덤으로 숫자를 만들어 주는 기능
+    // 1부터 45까지의 숫자를 담은 배열을 만든다
+    // 랜덤한 숫자를 생성해서 생성된 번호를 인덱스에 대입 인덱스에 있는 숫자를 추출한 후 추출한 숫자는 배열에서 제거
+
     class LottoNum extends React.Component {
       constructor(props) {
         super(props);
@@ -58,6 +64,9 @@
         return newArr;
       }
 
+      // 클래스를 생성하면 render가 가장 먼저 실행됨
+      // LottoBox 클래스를 호출하는데 numberBox 속성에 createNum() 함수를 담아서 보냄
+      // this.createNum() 사용할떄 ()를 생략해서 쓰면 createNum()에 쓰여진 코드가 텍스트로 전부 넘어감
       render() {
         return <LottoBox numberBox={this.createNum()} />;
       }
@@ -69,6 +78,7 @@
         super(props);
       }
 
+      // 랜덤한 숫자를 생성해서 동그란 원에 숫자를 넣어출력해줌
       render() {
         return (
           <div className="LottoWrap">
