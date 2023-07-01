@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="../lotto/css/lotto.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/babel">
+    class LottoBox extends React.Component {
+      render() {
+        return this.props.numberBox.map((num, index) => (
+          <span className="LottoNum" key={index}>
+            {num}
+          </span>
+        ));
+      }
+    }
+
+    class LottoNumBox extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          arr: [],
+        };
+      }
+
+      createNum = () => {
+        let arr = [
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+          21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+          38, 39, 40, 41, 42, 43, 44, 45,
+        ];
+        const newArr = [];
+        while (newArr.length < 6) {
+          const ranNum = Math.floor(Math.random() * arr.length);
+          newArr.push(arr.splice(ranNum, 1)[0]);
+        }
+
+        this.setState({ arr: newArr });
+      };
+
+      render() {
+        return (
+          <div>
+            <LottoBox numberBox={this.state.arr} />
+            <button onClick={this.createNum}>번호 생성</button>
+          </div>
+        );
+      }
+    }
+
+    class Lotto extends React.Component {
+      render() {
+        return (
+          <div className="LottoWrap">
+            <div className="LottoTitle">
+              <span>로또 추첨기</span>
+            </div>
+            <div className="LottoContainer">
+              <LottoNumBox />
+            </div>
+          </div>
+        );
+      }
+    }
+
+    class App extends React.Component {
+      render() {
+        return <Lotto />;
+      }
+    }
+
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    root.render(<App />);
+  </script>
+</html>
