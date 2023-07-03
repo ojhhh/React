@@ -1,0 +1,5 @@
+{
+  // babel 설정
+  // presets javscript 기능 또는 구문을 변환하는 babel 플러그인
+  "presets": ["@babel/preset-env"]
+}

@@ -1,0 +1,5 @@
+{
+  // babel 설정
+  // 사용할 플러그인
+  "plugins": ["@babel/plugin-transform-modules-commonjs"]
+}

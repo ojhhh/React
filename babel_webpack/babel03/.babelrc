@@ -1,0 +1,4 @@
+{
+  // babel 설정
+  "presets": ["@babel/preset-react"]
+}
