@@ -178,6 +178,11 @@
   font-weight: 600;
   margin: 5px;
 }
+.dates:nth-child(1) span,
+.dates:nth-child(7n) span,
+.dates:nth-child(7n + 1) span {
+  color: rgba(255, 255, 255, 0.5);
+}
 
 /* ContainerWrap end */
 .FooterSpan {
