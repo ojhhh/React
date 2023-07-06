@@ -27,6 +27,7 @@ const makeMine = () => {
   mineArr.sort((a, b) => a.index - b.index);
   return mineArr;
 };
+// ==================================================================
 
 export default function Minebox({ onGameOver }) {
   const [mines, setMine] = useState(makeMine());

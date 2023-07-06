@@ -6,6 +6,7 @@ function App() {
   const [gameKey, setGameKey] = useState(0);
 
   const restartGame = () => {
+    // 처음 시작할때 지뢰를 생성하기 위해 의도적으로 값을 변경함
     setGameKey((prevKey) => prevKey + 1);
   };
 
