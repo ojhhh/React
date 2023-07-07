@@ -8,19 +8,23 @@
   </head>
   <body>
     <div id="test"></div>
+    <input type="text" name="test" />
+    <input type="checkbox" />
+    <button>commit</button>
   </body>
   <script>
-    function getClock() {
-      let getHour = new Date().getHours();
-      let getMin = new Date().getMinutes();
-
-      let getTime = getHour.toLocaleString() + " : " + getMin.toLocaleString();
-
-      return getTime;
-    }
-
     const test = document.querySelector("#test");
-    test.innerHTML = getClock();
-    getClock();
+    const btn = document.querySelector("button");
+    const int = document.querySelector("input");
+    let arr = [];
+    btn.onclick = () => {
+      console.log(int.value);
+      let temp = int.value;
+      arr.push(temp);
+      test.innerHTML = "";
+      arr.forEach((e) => {
+        test.append(e);
+      });
+    };
   </script>
 </html>

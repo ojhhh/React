@@ -23,6 +23,12 @@ const Header = () => {
     }, 1000);
   }, []);
 
+  const [list, setList] = useState(["test1", "test2"]);
+
+  useEffect(() => {
+    console.log(list);
+  }, [list]);
+
   useEffect(() => {}, [time]);
 
   return (
@@ -63,7 +69,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <Body />
+        <Body list={list} setList={setList} />
       </div>
     </div>
   );
