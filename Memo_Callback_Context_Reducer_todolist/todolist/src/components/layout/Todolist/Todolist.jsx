@@ -1,4 +1,4 @@
-import React, { useContext, useStat } from "react";
+import React, { useCallback, useContext, useStat } from "react";
 import { Wrap, TopBox } from "./Todolist.styled";
 import Global from "../../../Global";
 import PopUp from "../Popup/PopUp";
@@ -11,6 +11,13 @@ const Todolist = () => {
   const { titleChk, setTitleChk } = useContext(Global);
   const { nameChk, setNameChk } = useContext(Global);
   const { listChk, setListChk } = useContext(Global);
+
+  const callbacktest = useCallback(() => {
+    console.log(title);
+  }, [title]);
+  const callbacktest2 = useCallback(() => {
+    console.log(name);
+  }, [name]);
 
   function HandleTitle() {
     setTitleChk(!titleChk);

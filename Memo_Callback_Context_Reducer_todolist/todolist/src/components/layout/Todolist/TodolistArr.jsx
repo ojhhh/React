@@ -1,33 +1,27 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { useSelector } from "react-redux";
 import Global from "../../../Global";
 import { ListBox } from "./TodolistArr.styled";
-// import Reducer from "../../Reducer";
-// import { useReducer } from "react";
-const TodolistArr = () => {
-  // const { init, reducer } = Reducer();
-  // const [state, dispatch] = useReducer(reducer, init);
-  // console.log(state);
 
-  // const getList = useSelector((state) => state.todolist);
-  // console.log(getList);
-  // const { state } = useContext(Global);
-  // useEffect(() => {
-  //   console.log(getList);
-  // }, [getList]);
+const TodolistArr = () => {
+  const { state } = useContext(Global);
+  const arr = [...state.todolist];
+
   return (
-    <>
-      <ListBox>
-        <div className="listContainer">
-          <div className="CheckBox">
-            <input type="checkbox" />
+    <div>
+      {arr.map((e) => (
+        <ListBox>
+          <div className="listContainer">
+            <div className="CheckBox">
+              <input type="checkbox" />
+            </div>
+            <div className="ListBody">
+              <span>{e}</span>
+            </div>
           </div>
-          <div className="ListBody">
-            <span>{"hi"}</span>
-          </div>
-        </div>
-      </ListBox>
-    </>
+        </ListBox>
+      ))}
+    </div>
   );
 };
 

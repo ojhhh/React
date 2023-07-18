@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { PopUpWrap } from "./PopUp.styled";
 import Global from "../../../Global";
-import Reducer from "../../Reducer";
+// import Reducer from "../../Reducer";
 
 const PopUp = ({ text }) => {
   const { titleChk, setTitleChk } = useContext(Global);
@@ -10,6 +10,7 @@ const PopUp = ({ text }) => {
   let { inputText, setIntputText } = useContext(Global);
   let { title, setTitle } = useContext(Global);
   let { name, setName } = useContext(Global);
+  const { state, dispatch } = useContext(Global);
 
   function closePopup() {
     if (text?.title) {
@@ -33,17 +34,24 @@ const PopUp = ({ text }) => {
     name = data;
     return;
   }
+  function getInputValue(data) {
+    inputText = data;
+    return;
+  }
 
   function updateValue() {
     setTitle(title);
     setName(name);
+    setIntputText(inputText);
     setTitleChk(false);
     setNameChk(false);
     setListChk(false);
     return;
   }
 
-  useEffect(() => {}, [title, name]);
+  useEffect(() => {
+    // console.log(state);
+  }, [state]);
 
   return (
     <PopUpWrap>
@@ -71,14 +79,21 @@ const PopUp = ({ text }) => {
             ) : text?.name ? (
               <input onChange={(e) => getNameInput(e.target.value)}></input>
             ) : (
-              <input onChange={(e) => setIntputText(e.target.value)}></input>
+              <input onChange={(e) => getInputValue(e.target.value)}></input>
             )}
             {text && text?.title ? (
               <button onClick={() => updateValue()}>Update</button>
             ) : text?.name ? (
               <button onClick={() => updateValue()}>Update</button>
             ) : (
-              <Reducer />
+              // <Reducer />
+              <button
+                onClick={() => {
+                  dispatch({ type: "ADDLIST", payload: inputText });
+                }}
+              >
+                Update
+              </button>
             )}
           </div>
         </div>
