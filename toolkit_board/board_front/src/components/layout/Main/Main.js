@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { MainWrap, LoginWrap } from "./Main.styled";
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { getUser } from "../../../features/users";
+import Global from "../../../Global";
 
 const Main = () => {
-  const dispatch = useDispatch();
-  let [userId, setUserId] = useState("");
-  let [userPw, setUserPw] = useState("");
+  const { dispatch, nav } = useContext(Global);
+  let [user_id, setUser_id] = useState("");
+  let [user_pw, setUser_pw] = useState("");
+
+  useEffect(() => {
+    console.log(user_pw);
+  }, [user_pw]);
 
   return (
     <MainWrap>
@@ -17,14 +21,17 @@ const Main = () => {
       <LoginWrap>
         <div className="LoginContainer">
           <label>ID</label>
-          <input name="user_id" onChange={(e) => setUserId(e.target.value)} />
+          <input name="user_id" onChange={(e) => setUser_id(e.target.value)} />
           <label>PW</label>
           <input
             type="password"
             name="user_pw"
-            onChange={(e) => setUserPw(e.target.value)}
+            onChange={(e) => setUser_pw(e.target.value)}
           />
-          <button onClick={dispatch(getUser(userId, userPw))}>Login</button>
+          <button onClick={() => dispatch(getUser({ user_id, user_pw }))}>
+            Login
+          </button>
+          <button onClick={() => nav("/signup")}>SignUp</button>
         </div>
       </LoginWrap>
     </MainWrap>
