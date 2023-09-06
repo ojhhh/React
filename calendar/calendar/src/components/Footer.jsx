@@ -4,7 +4,7 @@ import React from "react";
 const Footer = () => {
   return (
     <>
-      <span className="FooterSpan">됬다 ㅋㅋ</span>
+      <span className="FooterSpan">완성!</span>
     </>
   );
 };

@@ -7,6 +7,7 @@ const Header = () => {
 
   const [active, setActive] = useState(false);
 
+  // active 속성이 바뀌는걸 감지
   useEffect(() => {}, [active]);
 
   function ContainerOnOff() {
