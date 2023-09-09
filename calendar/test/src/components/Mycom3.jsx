@@ -29,8 +29,8 @@ const Mycom3 = ({ newNum, newNum2, newNum3 }) => {
   const [active, setActive] = useState(false);
   // useEffect : 첫번째 매개변수 함수 전달, 두번째 매개변수 배열을 전달
   // 첫번째로 전달한 함수를 두번째 매개변수의 상태를 확인하고 실행
-  // [] 빈 배열을 전달 한 경우 componentDidMount
-  // [num] : 배열에 전달된 값이 수정될 경우 componentDidMount, componentDidUpdate
+  // [] 빈 배열을 전달 한 경우 componentDidMount 출력
+  // [num] : 배열에 전달된 값이 수정될 경우 componentDidMount, componentDidUpdate 출력
   // [active] 배열에 전달한 값만 주시 num이 변화하면 [num] 만 실행 active가 변화하면 [active]만 실행
   // 여러개의 값을 주시하려면 [num, active] 이런식으로 작성
   useEffect(() => {
@@ -69,6 +69,8 @@ const Mycom3 = ({ newNum, newNum2, newNum3 }) => {
   }
   return (
     <div>
+      <span>num : {num}</span>
+      <br />
       <button onClick={clickhandler}>click</button>
       <button onClick={activehandler}>active</button>
     </div>
